@@ -1,0 +1,71 @@
+.parent {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem;
+    background: #f0f2f5;
+}
+
+.register-form {
+    display: flex;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.register-form .image-side {
+    flex: 1;
+    background: linear-gradient(45deg, #FF6B6B, #FFE66D);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.register-form .form-side {
+    flex: 1;
+    padding: 3rem;
+}
+
+.register-form input {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: none;
+    border-bottom: 2px solid #eee;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.register-form input:focus {
+    border-bottom-color: #FF6B6B;
+}
+
+.register-form button {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.register-form button:hover {
+    transform: translateY(-2px);
+}

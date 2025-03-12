@@ -1,0 +1,17 @@
+<div class="parent">
+    <div class="register-form">
+        <div class="image-side">
+            <h2>Sign up for HeatMail</h2>
+            <p>Create a free account and gain access to all the features that HeatMail provides.</p>
+        </div>
+        <div class="form-side">
+            <h2>Register</h2>
+            <form>
+                <input type="email" name="email" [(ngModel)]="registerObj.email" placeholder="Email" required class="email">
+                <input type="password" name="password" [(ngModel)]="registerObj.password" placeholder="Password" required="password">
+                <input type="fullName" name="fullName" [(ngModel)]="registerObj.fullName" placeholder="FullName" required="fullName">
+                <button type="submit" (click)="onRegister()">Sign up</button>
+            </form>
+        </div>
+    </div>
+</div>

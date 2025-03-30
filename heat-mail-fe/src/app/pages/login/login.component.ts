@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule} from '@angular/forms'
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent {
   }
 
   http = inject(HttpClient);
-  constructor(private router:Router) {
+  constructor(private router:Router, private dialog: MatDialog) {
     
   }
 
@@ -29,7 +31,6 @@ export class LoginComponent {
           next: (res: any) => {
             debugger;
             if (res.token != null) {
-              alert("Login Success" + res.token);
               localStorage.setItem("angularLogin", res.token);
               this.router.navigateByUrl("dashboard");
               
@@ -39,8 +40,7 @@ export class LoginComponent {
           },
           error: (error) => {
             debugger;
-            console.error('Login error:', error);
-            alert(error.error.description);
+            this.openErrorDialog(error.error.description,"Login Error");
           }
         });
     } catch (error) {
@@ -53,5 +53,21 @@ export class LoginComponent {
   navigateToRegister(): void {
     this.router.navigate(['/register']);
   }
+
+   openErrorDialog(message: string,title: string): void {
+      debugger;
+      const dialogRef = this.dialog.open(ErrorDialogComponent, {
+        width: "600px",
+        panelClass: 'custom-dialog-container',
+        data: {message,title},
+      });
+  
+      dialogRef.afterClosed().subscribe(() => {
+        this.loginObj = {
+          email: "",
+          password: ""
+        };
+      });
+    }
 }
  

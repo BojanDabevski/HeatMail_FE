@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ErrorDialogComponent {
   
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string },private router:Router) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string, title: string },private router:Router) {}
 
   http = inject(HttpClient);
   

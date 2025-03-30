@@ -37,7 +37,7 @@ export class RegisterComponent {
           },
           error: (error) => {
             debugger;
-            this.openErrorDialog(error.error.description);
+            this.openErrorDialog(error.error.description,"Registration Error");
           }
         });
     } catch (error) {
@@ -47,12 +47,12 @@ export class RegisterComponent {
     }
   }
 
-  openErrorDialog(message: string): void {
+  openErrorDialog(message: string,title: string): void {
     debugger;
     const dialogRef = this.dialog.open(ErrorDialogComponent, {
       width: "600px",
       panelClass: 'custom-dialog-container',
-      data: { message },
+      data: {message,title},
     });
 
     dialogRef.afterClosed().subscribe(() => {

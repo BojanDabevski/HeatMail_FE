@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { FormsModule} from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-register',
@@ -10,17 +12,14 @@ import { Router } from '@angular/router';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-
-  registerObj:any ={
-    "email": "",
-    "password": "",
-    "fullName": ""
-  }
+  registerObj: any = {
+    email: "",
+    password: "",
+    fullName: ""
+  };
 
   http = inject(HttpClient);
-  constructor(private router:Router) {
-    
-  }
+  constructor(private router: Router, private dialog: MatDialog) {}
 
   onRegister() {
     try {
@@ -32,15 +31,13 @@ export class RegisterComponent {
             if (res.id != null) {
               alert("Register Success");
               this.router.navigateByUrl("login");
-              
             } else {
               alert(res.description);
             }
           },
           error: (error) => {
             debugger;
-            console.error('Register error:', error);
-            alert(error.error.description);
+            this.openErrorDialog(error.error.description);
           }
         });
     } catch (error) {
@@ -50,4 +47,20 @@ export class RegisterComponent {
     }
   }
 
+  openErrorDialog(message: string): void {
+    debugger;
+    const dialogRef = this.dialog.open(ErrorDialogComponent, {
+      width: "600px",
+      panelClass: 'custom-dialog-container',
+      data: { message },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.registerObj = {
+        email: "",
+        password: "",
+        fullName: ""
+      };
+    });
+  }
 }

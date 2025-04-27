@@ -26,4 +26,8 @@ export class LayoutComponent {
     this.router.navigate(['']);
   }
 
+  navigateToStatistics(): void {
+    this.router.navigate(['/statistics']);
+  }
+
 }

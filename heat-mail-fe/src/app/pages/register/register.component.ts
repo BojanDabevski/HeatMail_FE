@@ -24,7 +24,7 @@ export class RegisterComponent {
   onRegister() {
     try {
       debugger;
-      this.http.post("http://localhost:8081/auth/signup", this.registerObj)
+      this.http.post("http://localhost:8084/auth/signup", this.registerObj)
         .subscribe({
           next: (res: any) => {
             debugger;

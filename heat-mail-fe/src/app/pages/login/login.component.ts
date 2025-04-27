@@ -26,7 +26,7 @@ export class LoginComponent {
   onLogin() {
     try {
       debugger;
-      this.http.post("http://localhost:8081/auth/login", this.loginObj)
+      this.http.post("http://localhost:8084/auth/login", this.loginObj)
         .subscribe({
           next: (res: any) => {
             debugger;

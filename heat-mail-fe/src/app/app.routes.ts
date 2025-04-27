@@ -5,6 +5,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { HomepageComponent } from './pages/homepage/homepage.component'
 import { authGuard } from './guard/auth.guard';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 export const routes: Routes = [
     {
@@ -34,6 +35,17 @@ export const routes: Routes = [
     {
         path: 'homepage',
         component: HomepageComponent
+    },
+    {
+        path: 'statistics',
+        component: LayoutComponent,
+        children: [
+            {
+                path: '',
+                component: StatisticsComponent,
+                canActivate:[authGuard]
+            }
+        ]
     },
 
 ];

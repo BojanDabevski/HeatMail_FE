@@ -12,6 +12,8 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (isPlatformBrowser(platformId)) {
     const localData = localStorage.getItem("angularLogin");
     if (localData !== null) {
+
+      //proveri dali e viable tokenot ushte
       return true;
     } else {
       router.navigateByUrl("homepage");

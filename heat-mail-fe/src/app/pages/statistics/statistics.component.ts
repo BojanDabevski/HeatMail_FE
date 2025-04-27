@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; // <-- Import OnInit
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,59 +13,51 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-dashboard',
-  imports: [
-    MatTableModule,
+  selector: 'app-statistics',
+  imports: [MatTableModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
     CommonModule,
-    FormsModule,
-  ],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+    FormsModule,],
+  templateUrl: './statistics.component.html',
+  styleUrl: './statistics.component.css'
 })
-export class DashboardComponent implements OnInit { // <-- Implements OnInit
-
+export class StatisticsComponent implements OnInit {
   displayedColumns: string[] = [
-    'month',
-    'year',
-    'mail_receiver',
-    'mail_title',
-    'mail_status',
-    'inserted_at',
-    'sent_at'
+    'statsType',
+    'count',
   ];
   dataSource = new MatTableDataSource<any>([]);
-
   selectedMonth: string = '';
   selectedYear: string = '';
   selectedDate: Date | null = null; // Variable to hold the selected date
   token: string | null = null;
-
+  
   constructor(private http: HttpClient) {
+    // Retrieve the token from localStorage
     this.token = localStorage.getItem('angularLogin');
   }
 
   onDateChange(event: any): void {
-    this.selectedDate = event.value;
+    this.selectedDate = event.value; // Update selectedDate with the picked date
     const selectedDate = new Date(event.value);
-    this.selectedMonth = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+    this.selectedMonth = (selectedDate.getMonth() + 1).toString().padStart(2, '0'); // Convert to "MM" format
     this.selectedYear = selectedDate.getFullYear().toString();
   }
 
   onMonthSelected(event: any, datepicker: any): void {
     const selectedDate = new Date(event);
-    this.selectedDate = selectedDate;
+    this.selectedDate = selectedDate; // Update selectedDate with the picked date
     this.selectedMonth = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
     this.selectedYear = selectedDate.getFullYear().toString();
     datepicker.close();
   }
 
-  fetchDashboardData(): void {
-    const url = 'http://localhost:8084/heatmail/getMailDashboard';
+  fetchStatisticData(): void {
+    const url = 'http://localhost:8084/heatmail/getMailStatistics';
 
     if (!this.token) {
       alert('Authorization token is missing. Please log in again.');
@@ -79,7 +71,7 @@ export class DashboardComponent implements OnInit { // <-- Implements OnInit
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.token}`,
-      ContentType: 'application/json'
+      ContentType: 'application/json' // Attach the token as a Bearer token
     });
 
     this.http.post<any[]>(url, body, { headers }).subscribe({
@@ -87,40 +79,41 @@ export class DashboardComponent implements OnInit { // <-- Implements OnInit
         this.dataSource.data = response;
       },
       error: (error) => {
-        console.error('Error fetching dashboard data:', error);
+        console.error('Error fetching statistics data:', error);
         alert('Failed to fetch data. Please try again.');
       }
     });
   }
 
   url1= 'http://localhost:8084/users/me';
-  fullName: string = '';
-  getCurrentUser(): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.token}`,
-      ContentType: 'application/json'
-    });
-    return this.http.get<any>(this.url1, { headers });
-  }
+    fullName: string = '';
+    getCurrentUser(): Observable<any> {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${this.token}`,
+        ContentType: 'application/json' 
+      });
+      return this.http.get<any>(this.url1, { headers });
+    }
+  
+    ngOnInit(): void{
 
-  ngOnInit(): void {
-    // 1. Set selectedDate, selectedMonth, selectedYear to current date
-    const now = new Date();
-    this.selectedDate = now;
-    this.selectedMonth = (now.getMonth() + 1).toString().padStart(2, '0');
-    this.selectedYear = now.getFullYear().toString();
+      const now = new Date();
+      this.selectedDate = now;
+      this.selectedMonth = (now.getMonth() + 1).toString().padStart(2, '0');
+      this.selectedYear = now.getFullYear().toString();
 
-    // 2. Fetch dashboard data for current date
-    this.fetchDashboardData();
+      
+      this.fetchStatisticData();
 
-    // 3. Fetch current user
-    this.getCurrentUser().subscribe({
-      next: (user) => {
-        this.fullName = user.fullName;
-      },
-      error: (err) => {
-        console.error('Failed to fetch user:', err);
-      }
-    });
-  }
+      debugger;
+      this.getCurrentUser().subscribe({
+        next: (user) => {
+          
+          this.fullName = user.fullName;
+        },
+        error: (err) => {
+          console.error('Failed to fetch user:', err);
+        }
+      })
+    }
 }

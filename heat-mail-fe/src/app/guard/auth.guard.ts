@@ -8,7 +8,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
   
-  // Check if the code is running in a browser environment
+  
   if (isPlatformBrowser(platformId)) {
     const localData = localStorage.getItem("angularLogin");
     if (localData !== null) {

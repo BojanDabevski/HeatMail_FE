@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @NgModule({
     declarations:[
@@ -23,6 +24,7 @@ import { FormsModule } from "@angular/forms";
         MatButtonModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatPaginatorModule,
         CommonModule,
         FormsModule,
     ],

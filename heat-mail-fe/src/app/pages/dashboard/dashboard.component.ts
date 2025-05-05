@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; // <-- Import OnInit
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -22,13 +23,13 @@ import { Observable } from 'rxjs';
     MatDatepickerModule,
     MatNativeDateModule,
     CommonModule,
+    MatPaginatorModule,
     FormsModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit { // <-- Implements OnInit
-
+export class DashboardComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'month',
     'year',
@@ -42,8 +43,10 @@ export class DashboardComponent implements OnInit { // <-- Implements OnInit
 
   selectedMonth: string = '';
   selectedYear: string = '';
-  selectedDate: Date | null = null; // Variable to hold the selected date
+  selectedDate: Date | null = null;
   token: string | null = null;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private http: HttpClient) {
     this.token = localStorage.getItem('angularLogin');
@@ -69,6 +72,7 @@ export class DashboardComponent implements OnInit { // <-- Implements OnInit
 
     if (!this.token) {
       alert('Authorization token is missing. Please log in again.');
+      
       return;
     }
 
@@ -85,6 +89,9 @@ export class DashboardComponent implements OnInit { // <-- Implements OnInit
     this.http.post<any[]>(url, body, { headers }).subscribe({
       next: (response) => {
         this.dataSource.data = response;
+        if (this.paginator) {
+          this.dataSource.paginator = this.paginator; 
+        }
       },
       error: (error) => {
         console.error('Error fetching dashboard data:', error);
@@ -93,7 +100,7 @@ export class DashboardComponent implements OnInit { // <-- Implements OnInit
     });
   }
 
-  url1= 'http://localhost:8084/users/me';
+  url1 = 'http://localhost:8084/users/me';
   fullName: string = '';
   getCurrentUser(): Observable<any> {
     const headers = new HttpHeaders({
@@ -104,16 +111,14 @@ export class DashboardComponent implements OnInit { // <-- Implements OnInit
   }
 
   ngOnInit(): void {
-    // 1. Set selectedDate, selectedMonth, selectedYear to current date
+    
     const now = new Date();
     this.selectedDate = now;
     this.selectedMonth = (now.getMonth() + 1).toString().padStart(2, '0');
     this.selectedYear = now.getFullYear().toString();
 
-    // 2. Fetch dashboard data for current date
     this.fetchDashboardData();
 
-    // 3. Fetch current user
     this.getCurrentUser().subscribe({
       next: (user) => {
         this.fullName = user.fullName;
@@ -122,5 +127,9 @@ export class DashboardComponent implements OnInit { // <-- Implements OnInit
         console.error('Failed to fetch user:', err);
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 }

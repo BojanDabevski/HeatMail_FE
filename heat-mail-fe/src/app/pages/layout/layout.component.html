@@ -1,13 +1,16 @@
+<link href="https://fonts.googleapis.com/css?family=Montserrat:700|Oswald:700|Lobster|Playfair+Display:700|Raleway:900&display=swap" rel="stylesheet">
+
 <body>
   <div class="navbar">
     <div class="logo">
-      <img src="logo_holder.jpg" alt="Logo"> 
+      <p>HeatMail</p><img src="assets/logo.png" alt="Logo"> 
     </div>
     <nav>
       <ul>
         <li><button mat-button type="submit" (click)="navigateToHome()">Dashboard</button></li>
         <li><button mat-button type="submit" (click)="navigateToStatistics()">Statistics</button></li>
         <li><button mat-button type="submit">Add HeatMailTODO</button></li>
+        <li><button mat-button type="submit">Send HeatMailTODO</button></li>
         <li><button mat-button mat-button type="submit" (click)="logout()">Log out</button></li>
       </ul>
     </nav>

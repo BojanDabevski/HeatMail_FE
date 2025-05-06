@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<div class="dashboard-container"  style="overflow: auto;">
   <p>Welcome <b>{{fullName}}</b> to your Dashboard</p>
   <div class="date-picker">
     <mat-form-field appearance="fill">
@@ -9,8 +9,8 @@
     </mat-form-field>
 
     <button mat-raised-button class="fetch-date" color="yellow" (click)="fetchDashboardData()">Fetch Data</button>
+    <button mat-raised-button class="fetch-date" color="yellow" (click)="exportToCSV()">Download CSV</button>
   </div>
-
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Month Column -->
     <ng-container matColumnDef="month">

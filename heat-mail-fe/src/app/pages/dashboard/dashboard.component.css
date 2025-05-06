@@ -20,6 +20,7 @@
     background: linear-gradient(45deg, #FF6B6B, #FFE66D); 
     position: relative;
     z-index: 10;
+    height: 60px;
   }
   
   .logo img {
@@ -69,6 +70,8 @@
     background-color: #ffffff; /* Optional: Set background color */
     z-index: 1000; /* Ensure it stays above other elements */
     padding: 16px; /* Optional: Add padding for content inside */
+    height: 100vh;         /* Full viewport height */
+    overflow: auto; 
   }
 
   .date-picker {

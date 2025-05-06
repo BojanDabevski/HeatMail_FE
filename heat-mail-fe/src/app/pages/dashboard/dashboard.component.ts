@@ -7,11 +7,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,7 +51,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private dialog: MatDialog,private router:Router) {
     this.token = localStorage.getItem('angularLogin');
   }
 
@@ -71,8 +74,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const url = 'http://localhost:8084/heatmail/getMailDashboard';
 
     if (!this.token) {
-      alert('Authorization token is missing. Please log in again.');
-      
+      this.openErrorDialog("","Authorization token is missing. Please log in again.");
       return;
     }
 
@@ -95,7 +97,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       },
       error: (error) => {
         console.error('Error fetching dashboard data:', error);
-        alert('Failed to fetch data. Please try again.');
+        if(error.error.description.includes('JWT expired at')){
+          this.openErrorDialog('',"Your session has timed out. Please log in again");
+          localStorage.removeItem("angularLogin");
+          this.router.navigate(['']);
+
+        }else{
+          this.openErrorDialog(error.error.description,"Failed to fetch data. Please try again.");
+        }
       }
     });
   }
@@ -132,4 +141,50 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
+
+   openErrorDialog(message: string,title: string): void {
+        debugger;
+        const dialogRef = this.dialog.open(ErrorDialogComponent, {
+          width: "600px",
+          panelClass: 'custom-dialog-container',
+          data: {message,title},
+        });
+      }
+
+      exportToCSV(): void {
+        if (!this.dataSource.data || this.dataSource.data.length === 0) {
+          alert('No data available to download.');
+          return;
+        }
+      
+        const csvHeaders = this.displayedColumns.map(col => col.replace(/_/g, ' ').toUpperCase());
+      
+        const csvRows = this.dataSource.data.map(row => {
+          return this.displayedColumns.map(col => {
+            let cell = row[col];
+            if (cell instanceof Date) {
+              return cell.toLocaleString();
+            } else if (typeof cell === 'string') {
+              // Escape double quotes
+              return '"' + cell.replace(/"/g, '""') + '"';
+            } else if (cell === null || cell === undefined) {
+              return '';
+            } else {
+              return cell.toString();
+            }
+          }).join(',');
+        });
+      
+        const csvContent = [csvHeaders.join(','), ...csvRows].join('\n');
+      
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `HeatMail_export_dashboard_data_${new Date().toISOString()}.csv`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+    
+       
 }

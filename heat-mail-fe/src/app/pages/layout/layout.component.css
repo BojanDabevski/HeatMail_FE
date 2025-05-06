@@ -16,14 +16,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;;
+    /* padding: 1em;; */
     background: linear-gradient(45deg, #FF6B6B, #FFE66D); 
-    /* position: relative; */
+    position: relative;
+    height: fit-content;
+     
     /* z-index: 10; */
   }
   
   .logo img {
     height: 50px;
+  }
+  .logo{
+    display: flex;
+    align-items: center; /* vertically center items */
+    gap: 10px;   
+    color: black;  
+    font-family: 'Montserrat', Arial, sans-serif;      /* Clean, modern */
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+    padding-left: 15px;
   }
   
   nav ul {

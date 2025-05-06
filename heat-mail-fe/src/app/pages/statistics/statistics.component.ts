@@ -116,4 +116,38 @@ export class StatisticsComponent implements OnInit {
         }
       })
     }
+    exportToCSV(): void {
+      if (!this.dataSource.data || this.dataSource.data.length === 0) {
+        alert('No data available to download.');
+        return;
+      }
+    
+      const csvHeaders = this.displayedColumns.map(col => col.replace(/_/g, ' ').toUpperCase());
+    
+      const csvRows = this.dataSource.data.map(row => {
+        return this.displayedColumns.map(col => {
+          let cell = row[col];
+          if (cell instanceof Date) {
+            return cell.toLocaleString();
+          } else if (typeof cell === 'string') {
+            // Escape double quotes
+            return '"' + cell.replace(/"/g, '""') + '"';
+          } else if (cell === null || cell === undefined) {
+            return '';
+          } else {
+            return cell.toString();
+          }
+        }).join(',');
+      });
+    
+      const csvContent = [csvHeaders.join(','), ...csvRows].join('\n');
+    
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `HeatMail_export_statistics_data_${new Date().toISOString()}.csv`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
 }

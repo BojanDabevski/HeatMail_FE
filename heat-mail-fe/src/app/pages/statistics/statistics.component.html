@@ -1,5 +1,5 @@
 <div class="statistics-container">
-    <p>Welcome {{fullName}} to your Statistics  </p>
+    <p>Welcome <b>{{fullName}}</b> to your Statistics  </p>
     <div class="date-picker">
       <mat-form-field appearance="fill">
         <mat-label>Select Month and Year</mat-label>
@@ -10,6 +10,8 @@
       </mat-form-field>
   
       <button mat-raised-button class="fetch-date" color="yellow" (click)="fetchStatisticData()">Fetch Data</button>
+      <button mat-raised-button class="fetch-date" color="yellow" (click)="exportToCSV()">Download CSV</button>
+
     </div>
   
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

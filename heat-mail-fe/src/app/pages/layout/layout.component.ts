@@ -29,5 +29,11 @@ export class LayoutComponent {
   navigateToStatistics(): void {
     this.router.navigate(['/statistics']);
   }
+  navigateToAddMails(): void{
+    this.router.navigate(['/addMails']);
+  }
+  navigateToSendMails(): void{
+    this.router.navigate(['/sendMails']);
+  }
 
 }

@@ -6,6 +6,8 @@ import { RegisterComponent } from './pages/register/register.component'
 import { HomepageComponent } from './pages/homepage/homepage.component'
 import { authGuard } from './guard/auth.guard';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { AddMailsComponent } from './pages/add-mails/add-mails.component';
+import { SendMailsComponent } from './pages/send-mails/send-mails.component';
 
 export const routes: Routes = [
     {
@@ -47,5 +49,26 @@ export const routes: Routes = [
             }
         ]
     },
-
+    {
+        path: 'addMails',
+        component: LayoutComponent,
+        children: [
+            {
+                path: '',
+                component: AddMailsComponent,
+                canActivate:[authGuard]
+            }
+        ]
+    },
+    {
+        path: 'sendMails',
+        component: LayoutComponent,
+        children: [
+            {
+                path: '',
+                component: SendMailsComponent,
+                canActivate:[authGuard]
+            }
+        ]
+    },
 ];

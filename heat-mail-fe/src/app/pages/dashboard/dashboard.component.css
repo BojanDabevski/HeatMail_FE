@@ -92,5 +92,21 @@
     font-weight: bold;
     transition: transform 0.3s;
   }
+
+  .status-imported {
+    color: white;          
+  }
+  
+  .status-in-process {
+    color: yellow;
+  }
+  
+  .status-finished {
+    color: green;
+  }
+  
+  .status-failed {
+    color: red;
+  }
   
   

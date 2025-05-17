@@ -1,0 +1,19 @@
+.send-mails-button {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+  }
+  .send-mails-button:hover {
+    transform: scale(1.05);
+  }
+  .count-highlight {
+    color: #FF6B6B;
+    font-weight: bold;
+  }

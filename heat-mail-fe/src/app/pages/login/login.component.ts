@@ -54,6 +54,10 @@ export class LoginComponent {
     this.router.navigate(['/register']);
   }
 
+  navigateToHomepage(): void {
+    this.router.navigate(['/homepage']);
+  }
+
    openErrorDialog(message: string,title: string): void {
       debugger;
       const dialogRef = this.dialog.open(ErrorDialogComponent, {

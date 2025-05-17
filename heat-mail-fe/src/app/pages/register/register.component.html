@@ -3,6 +3,7 @@
         <div class="image-side">
             <h2>Sign up for HeatMail</h2>
             <p>Create a free account and gain access to all the features that HeatMail provides.</p>
+            
         </div>
         <div class="form-side">
             <h2>Register</h2>
@@ -11,7 +12,14 @@
                 <input type="password" name="password" [(ngModel)]="registerObj.password" placeholder="Password" required="password">
                 <input type="fullName" name="fullName" [(ngModel)]="registerObj.fullName" placeholder="FullName" required="fullName">
                 <button type="submit" (click)="onRegister()">Sign up</button>
+                <button type="submit" (click)="navigateToLogin()">Already have an account? Log in now</button>
+                <button type="submit" (click)="navigateToHomepage()">Return to Homepage</button>
             </form>
         </div>
     </div>
+    <div class="register-form">
+        
+    </div>
+    
+    
 </div>

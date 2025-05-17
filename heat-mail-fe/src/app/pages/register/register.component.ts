@@ -21,6 +21,13 @@ export class RegisterComponent {
   http = inject(HttpClient);
   constructor(private router: Router, private dialog: MatDialog) {}
 
+  navigateToHomepage(): void {
+    this.router.navigate(['/homepage']);
+  }
+  navigateToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
   onRegister() {
     try {
       debugger;

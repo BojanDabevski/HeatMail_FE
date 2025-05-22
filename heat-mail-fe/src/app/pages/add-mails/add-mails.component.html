@@ -4,7 +4,7 @@
         <p>Welcome <b>{{fullName}}</b> to your Mail adding page</p>
 
         <div class="upload-instructions">
-            <h3>How to Upload Your Mails Excel File</h3>
+            <h3>How to Upload Your Mails using an Excel File</h3>
             <ul>
               <li>Prepare an Excel file (.xlsx or .xls) with the following columns: <strong>month, year, mail_body, mail_title, mail_receiver</strong>.</li>
               <li>The <em>month</em> should be in two-digit format (e.g., 04 for April).</li>
@@ -19,6 +19,7 @@
               <li>Please ensure the file structure matches the template to avoid upload errors.</li>
             </ul>
         </div>
+        <div><b>Upload your data here:</b> </div>
         <input type="file"  (change)="onFileSelected($event)" accept=".xlsx, .xls" />
 
         <button mat-raised-button 

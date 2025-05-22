@@ -3,6 +3,10 @@
     padding: 0;
     box-sizing: border-box;
   }
+  img {
+    /* width: 50px; */
+    max-height: 50px;
+  }
   
   body {
     font-family: Arial, sans-serif;
@@ -23,6 +27,7 @@
      
     /* z-index: 10; */
   }
+
   
   .logo img {
     height: 50px;

@@ -11,6 +11,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from "@angular/forms";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations:[
@@ -27,6 +29,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
         MatPaginatorModule,
         CommonModule,
         FormsModule,
+        MatDialogModule,
+        HttpClientModule
     ],
     providers: [],
     bootstrap: []

@@ -1,0 +1,74 @@
+ .add-mails-container {
+    position: fixed; /* Keeps the dashboard-container fixed */
+    top: 50px; /* Adjust this value to match the height of your menu bar */
+    left: 0;
+    width: 100%;
+    align-items: center;
+    background-color: #ffffff; /* Optional: Set background color */
+    z-index: 1000; /* Ensure it stays above other elements */
+    padding: 16px; /* Optional: Add padding for content inside */
+  }
+
+  
+  input[type="file"] {
+    margin: 20px 0;
+    display: block;
+  }
+  
+  .validation-message {
+    color: #ff4444;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  .add-button {
+    /* width: 10%;
+    height: 5%; */
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+  }
+  
+  body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .add-mails-outer {
+    display: flex;
+    justify-content: center;  /* Horizontal center */
+    align-items: center;      /* Vertical center */
+    height: 100vh;            /* Full viewport height */
+    width: 100vw;             /* Full viewport width */
+  } 
+
+  .upload-instructions {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .upload-instructions h3 {
+    margin-top: 0;
+    color: #FF6B6B;
+  }
+  
+  .upload-instructions ul {
+    padding-left: 1.2rem;
+  }
+  
+  .upload-instructions li {
+    margin-bottom: 0.5rem;
+  }

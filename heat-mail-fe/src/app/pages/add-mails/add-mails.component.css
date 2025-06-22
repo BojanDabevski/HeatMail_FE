@@ -1,4 +1,5 @@
  .add-mails-container {
+    overflow-y: auto;
     position: fixed; /* Keeps the dashboard-container fixed */
     top: 50px; /* Adjust this value to match the height of your menu bar */
     left: 0;
@@ -7,6 +8,7 @@
     background-color: #ffffff; /* Optional: Set background color */
     z-index: 1000; /* Ensure it stays above other elements */
     padding: 16px; /* Optional: Add padding for content inside */
+   
   }
 
   
@@ -72,3 +74,15 @@
   .upload-instructions li {
     margin-bottom: 0.5rem;
   }
+
+  .add-mails-flex-container {
+  display: flex;
+  gap: 2rem; /* space between the two sections */
+  align-items: flex-start; /* align tops */
+}
+
+.excel-upload-container,
+.attach-file-container {
+  flex: 1; /* each takes up half the available width */
+  min-width: 300px; /* optional: prevent them from getting too small */
+}

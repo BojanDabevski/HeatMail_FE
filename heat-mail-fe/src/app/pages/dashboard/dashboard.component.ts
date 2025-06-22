@@ -40,7 +40,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     'mail_title',
     'mail_status',
     'inserted_at',
-    'sent_at'
+    'sent_at',
+    'mail_attachment_title'
   ];
   dataSource = new MatTableDataSource<any>([]);
 

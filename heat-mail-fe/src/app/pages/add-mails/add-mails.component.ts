@@ -20,6 +20,10 @@ export class AddMailsComponent implements OnInit{
   isProcessing = false;
   fullName: string = '';
   token: string | null = null;
+  attachmentFile: File | null = null;
+  attachmentFileName: string = '';
+  attachmentBase64: string = '';
+  attachmentStatus: string = '';
 
   constructor(private http: HttpClient, private dialog: MatDialog) {
     this.token = localStorage.getItem('angularLogin');
@@ -168,5 +172,52 @@ export class AddMailsComponent implements OnInit{
       panelClass: 'custom-dialog-container',
       data: { title, message }
     });
+  }
+  onAttachmentSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.attachmentFile = file;
+      this.attachmentFileName = file.name;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        this.attachmentBase64 = result.split(',')[1];
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  uploadAttachment(): void {
+    if (!this.attachmentBase64 || !this.attachmentFileName) {
+      this.attachmentStatus = 'No file selected or file not processed.';
+      return;
+    }
+    const payload = [{
+      mail_attachment_title: this.attachmentFileName,
+      mail_attachment_body: this.attachmentBase64
+    }];
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`,
+      'Content-Type': 'application/json'
+    });
+    this.http.post('http://localhost:8084/heatmail/insertMailAttachment', payload, { headers })
+    .subscribe({
+       next: () => {
+          this.dialog.open(SuccessDialogComponent, {
+            width: "600px",
+            panelClass: 'custom-dialog-container',
+            data: { 
+              title: 'Success', 
+              message: `Attachment successfully added!` 
+            }
+          });
+          this.selectedFile = undefined;
+        },
+        error: (err) => {
+          console.error('Error uploading data:', err);
+          this.openErrorDialog('Upload Failed', err.error?.description || 'Failed to upload data');
+        },
+        complete: () => this.isProcessing = false
+      });
   }
 }

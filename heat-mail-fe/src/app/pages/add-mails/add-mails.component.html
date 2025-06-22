@@ -1,36 +1,65 @@
 <div class="add-mails-container">
-    <div >
-        <!-- <h2>Add Mails via Excel</h2> -->
-        <p>Welcome <b>{{fullName}}</b> to your Mail adding page</p>
+  <div>
+    <p>Welcome <b>{{fullName}}</b> to your Mail adding page</p>
 
-        <div class="upload-instructions">
-            <h3>How to Upload Your Mails using an Excel File</h3>
-            <ul>
-              <li>Prepare an Excel file (.xlsx or .xls) with the following columns: <strong>month, year, mail_body, mail_title, mail_receiver</strong>.</li>
-              <li>The <em>month</em> should be in two-digit format (e.g., 04 for April).</li>
-              <li>The <em>year</em> should be a four-digit number (e.g., 2025).</li>
-              <li>Fill in the email content in <em>mail_body</em>, the subject in <em>mail_title</em>, and recipient email addresses in <em>mail_receiver</em>.</li>
-              <li>If you have variables that you want to be dynamically replaced in the body of the email implement them with the variable <em>%noData%</em> and insert the value of the variables in the <em>mail_body_variables</em> seperated with <em>;</em></li>
-              <li>Use the <strong>Download Excel Template</strong> button to get a sample template file. <a href="assets/HeatMailAddTemplate.xlsx" download>
-                <button mat-raised-button class="add-button">
-                  Download Excel Template
-                </button>
-              </a></li>
-              <li>After selecting your file, click <strong>Upload & Send Data</strong> to process and send the mails.</li>
-              <li>Please ensure the file structure matches the template to avoid upload errors.</li>
-            </ul>
-        </div>
-        <div><b>Upload your data here:</b> </div>
-        <input type="file"  (change)="onFileSelected($event)" accept=".xlsx, .xls" />
+    <div class="upload-instructions">
+      <h3>How to Upload Your Mails using an Excel File</h3>
+      <ul>
+        <li>Prepare an Excel file (.xlsx or .xls) with the following columns: <strong>month, year, mail_body, mail_title, mail_receiver</strong>.</li>
+        <li>The <em>month</em> should be in two-digit format (e.g., 04 for April).</li>
+        <li>The <em>year</em> should be a four-digit number (e.g., 2025).</li>
+        <li>Fill in the email content in <em>mail_body</em>, the subject in <em>mail_title</em>, and recipient email addresses in <em>mail_receiver</em>.</li>
+        <li>If you have variables that you want to be dynamically replaced in the body of the email implement them with the variable <em>%noData%</em> and insert the value of the variables in the <em>mail_body_variables</em> seperated with <em>;</em></li>
+        <li>If you have variables that you want to be dynamically replaced in the body of the email implement them with the variable <em>%noData%</em> and insert the value of the variables in the <em>mail_body_variables</em> seperated with <em>;</em></li>
+
+        <li>
+          Use the <strong>Download Excel Template</strong> button to get a sample template file.
+          <a href="assets/HeatMailAddTemplate.xlsx" download>
+            <button mat-raised-button class="add-button">
+              Download Excel Template
+            </button>
+          </a>
+        </li>
+        <li>After selecting your file, click <strong>Upload & Send Data</strong> to process and send the mails.</li>
+        <li>Please ensure the file structure matches the template to avoid upload errors.</li>
+      </ul>
+    </div>
+
+    <div class="excel-upload-container"> 
+      <div><b>Upload your HeatMail data here:</b> </div>
+        <input type="file" (change)="onFileSelected($event)" accept=".xlsx, .xls" />
 
         <button mat-raised-button 
                 [disabled]="!selectedFile || isProcessing"
                 (click)="uploadFile()">
-            {{ isProcessing ? 'Processing...' : 'Upload & Send Data' }}
+          {{ isProcessing ? 'Processing...' : 'Upload & Send Data' }}
         </button>
 
         <div *ngIf="validationMessage" class="validation-message">
-            {{ validationMessage }}
+          {{ validationMessage }}
         </div>
     </div>
- </div> 
+        
+
+    <!-- ========================= -->
+    <!-- File Attachment Section   -->
+    <!-- ========================= -->
+    <hr style="margin: 2rem 0;" />
+    <div class="attach-file-container">
+      <h3>Attach and Upload a File</h3>
+      <input type="file" (change)="onAttachmentSelected($event)" />
+      <div *ngIf="attachmentFileName">
+        <p>Selected file: <strong>{{ attachmentFileName }}</strong></p>
+      </div>
+      <button mat-raised-button color="primary"
+              (click)="uploadAttachment()"
+              [disabled]="!attachmentBase64">
+        Upload Attachment
+      </button>
+      <div *ngIf="attachmentStatus">
+        <p>{{ attachmentStatus }}</p>
+      </div>
+    </div>
+    <!-- ========================= -->
+  </div>
+</div>

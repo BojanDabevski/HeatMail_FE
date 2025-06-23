@@ -73,7 +73,7 @@ export class AddMailsComponent implements OnInit{
           return;
         }
   
-        const expectedHeaders = ['month', 'year', 'mail_body', 'mail_title', 'mail_receiver','mail_body_variables'];
+        const expectedHeaders = ['month', 'year', 'mail_body', 'mail_title', 'mail_receiver','mail_body_variables','mail_attachment_title'];
         const actualHeaders = jsonData[0] as string[];
   
         if (!expectedHeaders.every(h => actualHeaders.includes(h))) {
@@ -122,7 +122,8 @@ export class AddMailsComponent implements OnInit{
         mail_body: row[headers.indexOf('mail_body')],
         mail_title: row[headers.indexOf('mail_title')],
         mail_receiver: row[headers.indexOf('mail_receiver')],
-        mail_body_variables: row[headers.indexOf('mail_body_variables')]
+        mail_body_variables: row[headers.indexOf('mail_body_variables')],
+        mail_attachment_title:row[headers.indexOf('mail_attachment_title')]
       }));
 
       this.sendDataToBackend(payload);

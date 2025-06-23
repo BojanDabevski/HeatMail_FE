@@ -5,13 +5,12 @@
     <div class="upload-instructions">
       <h3>How to Upload Your Mails using an Excel File</h3>
       <ul>
-        <li>Prepare an Excel file (.xlsx or .xls) with the following columns: <strong>month, year, mail_body, mail_title, mail_receiver</strong>.</li>
+        <li>Prepare an Excel file (.xlsx or .xls) with the following columns: <strong>month, year, mail_body, mail_title, mail_receiver,mail_body_variables,mail_attachment_title</strong>.</li>
         <li>The <em>month</em> should be in two-digit format (e.g., 04 for April).</li>
         <li>The <em>year</em> should be a four-digit number (e.g., 2025).</li>
         <li>Fill in the email content in <em>mail_body</em>, the subject in <em>mail_title</em>, and recipient email addresses in <em>mail_receiver</em>.</li>
         <li>If you have variables that you want to be dynamically replaced in the body of the email implement them with the variable <em>%noData%</em> and insert the value of the variables in the <em>mail_body_variables</em> seperated with <em>;</em></li>
-        <li>If you have variables that you want to be dynamically replaced in the body of the email implement them with the variable <em>%noData%</em> and insert the value of the variables in the <em>mail_body_variables</em> seperated with <em>;</em></li>
-
+        <li>If you want to send attachments with your emails write the name of the file in the <em>mail_attachment_title</em> along with the fileType and afterwards upload the attachment seperately below in the File Attachment input</li>
         <li>
           Use the <strong>Download Excel Template</strong> button to get a sample template file.
           <a href="assets/HeatMailAddTemplate.xlsx" download>
@@ -46,7 +45,7 @@
     <!-- ========================= -->
     <hr style="margin: 2rem 0;" />
     <div class="attach-file-container">
-      <h3>Attach and Upload a File</h3>
+      <h3>Attach and Upload a File Attachment</h3>
       <input type="file" (change)="onAttachmentSelected($event)" />
       <div *ngIf="attachmentFileName">
         <p>Selected file: <strong>{{ attachmentFileName }}</strong></p>

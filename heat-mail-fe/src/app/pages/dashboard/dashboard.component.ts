@@ -15,6 +15,8 @@ import { Observable } from 'rxjs';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { ConfirmDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -152,6 +154,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         });
       }
 
+       openSuccessDialog(message: string,title: string): void {
+        debugger;
+        const dialogRef = this.dialog.open(SuccessDialogComponent, {
+          width: "600px",
+          panelClass: 'custom-dialog-container',
+          data: {message,title},
+        });
+      }
+
       exportToCSV(): void {
         if (!this.dataSource.data || this.dataSource.data.length === 0) {
           alert('No data available to download.');
@@ -186,6 +197,55 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         a.click();
         window.URL.revokeObjectURL(url);
       }
-    
-       
+
+      onDeleteClick() {
+        if (!this.token) {
+          this.openErrorDialog("", "Authorization token is missing. Please log in again.");
+          return;
+        }
+
+        if (!this.selectedMonth || !this.selectedYear) {
+          this.openErrorDialog("", "Please select a month and year before deleting mails.");
+          return;
+        }
+
+        // open confirmation dialog
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+          width: '600px',
+          panelClass: 'custom-dialog-container',
+          data: {
+            title: 'Confirm HeatMail Deletion',
+            message: `Are you sure you want to delete mails for ${this.selectedMonth}/${this.selectedYear}?`
+          }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            const url = 'http://localhost:8084/heatmail/deleteMail';
+            const body = { month: this.selectedMonth, year: this.selectedYear };
+
+            const headers = new HttpHeaders({
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.token}`
+            });
+
+            this.http.delete(url, { headers: headers, body: body }).subscribe({
+              next: response => {
+                this.openSuccessDialog("HeatMail succesfully deleted", "Delete success");
+                this.fetchDashboardData();
+              },
+              error: err => {
+                if (err.error?.description?.includes('JWT expired')) {
+                  this.openErrorDialog('', "Your session has timed out. Please log in again.");
+                  localStorage.removeItem("angularLogin");
+                  this.router.navigate(['']);
+                } else {
+                  this.openErrorDialog(err.error?.description || '', "Failed to delete mails. Please try again.");
+                }
+              }
+            });
+          }
+        });
+      }
+      
 }

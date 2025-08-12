@@ -10,6 +10,7 @@
 
     <button mat-raised-button class="fetch-date" color="yellow" (click)="fetchDashboardData()">Fetch Data</button>
     <button mat-raised-button class="fetch-date" color="yellow" (click)="exportToCSV()">Download CSV</button>
+    <button mat-raised-button class="fetch-date" color="yellow" (click)="onDeleteClick()">Delete HeatMail</button>
   </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Month Column -->

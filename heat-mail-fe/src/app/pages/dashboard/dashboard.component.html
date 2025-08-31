@@ -1,6 +1,12 @@
-<div class="dashboard-container"  style="overflow: auto;">
+<div class="dashboard-container" style="overflow: auto;">
   <p>Welcome <b>{{fullName}}</b> to your Dashboard</p>
+
   <div class="date-picker">
+    <mat-form-field class="search-field">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search mails..." #input>
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Select Month and Year</mat-label>
       <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" />
@@ -11,6 +17,28 @@
     <button mat-raised-button class="fetch-date" color="yellow" (click)="fetchDashboardData()">Fetch Data</button>
     <button mat-raised-button class="fetch-date" color="yellow" (click)="exportToCSV()">Download CSV</button>
     <button mat-raised-button class="fetch-date" color="yellow" (click)="onDeleteClick()">Delete HeatMail</button>
+  </div>
+  <div class="stats-cards">
+    <mat-card class="stat-card">
+      <div mat-card-title>Total Mails</div>
+      <div class="mat-card-content">{{dataSource.data.length}}</div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <div mat-card-title>Finished</div>
+      <div class="mat-card-content">{{getStatusCount('FINISHED')}}</div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <div mat-card-title>In Process</div>
+      <div class="mat-card-content">{{getStatusCount('MAIL_IN_PROCESS')}}</div>
+    </mat-card>
+    <mat-card class="stat-card">
+      <div mat-card-title>Failed</div>
+      <div class="mat-card-content">{{getStatusCount('FAILED')}}</div>
+    </mat-card>
+      <mat-card class="stat-card">
+      <div mat-card-title>Imported</div>
+      <div class="mat-card-content">{{getStatusCount('IMPORTED')}}</div>
+    </mat-card>
   </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Month Column -->
@@ -72,6 +100,17 @@
     <!-- Table Header and Rows -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="8">
+        <div class="no-data-message" *ngIf="!isLoading; else loadingTemplate">
+          No data matching the filter "{{input.value}}"
+        </div>
+        <ng-template #loadingTemplate>
+          <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+        </ng-template>
+      </td>
+    </tr>
   </table>
 
   <!-- Paginator -->

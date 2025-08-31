@@ -17,6 +17,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
 import { ConfirmDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
+import { MatCardModule, MatCard } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule, MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +33,9 @@ import { ConfirmDialogComponent } from '../confirm-delete-dialog/confirm-delete-
     CommonModule,
     MatPaginatorModule,
     FormsModule,
-  ],
+    MatCard,
+    MatProgressSpinner
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -46,7 +51,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     'mail_attachment_title'
   ];
   dataSource = new MatTableDataSource<any>([]);
-
+  isLoading = false;
   selectedMonth: string = '';
   selectedYear: string = '';
   selectedDate: Date | null = null;
@@ -246,6 +251,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
             });
           }
         });
+      }
+      getStatusCount(status: string): number {
+        return this.dataSource.data.filter(item => item.mail_status === status).length;
+      }
+
+      applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
       }
       
 }

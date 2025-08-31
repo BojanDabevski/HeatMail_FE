@@ -2,21 +2,21 @@
   <p>Welcome <b>{{fullName}}</b> to your Attachments</p>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Existing ID Column -->
+    
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
-    <!-- Existing Attachment Title Column -->
+    
     <ng-container matColumnDef="mail_attachment_title">
       <th mat-header-cell *matHeaderCellDef> Attachment Title </th>
       <td mat-cell *matCellDef="let element"> {{element.mail_attachment_title}} </td>
     </ng-container>
 
-    <!-- New Actions Column -->
+    
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <th mat-header-cell *matHeaderCellDef>Delete Attachment</th>
       <td mat-cell *matCellDef="let element">
         <button mat-raised-button class="delete-mails-button" color="yellow" (click)="onDeleteClick(element)">Delete</button>
       </td>

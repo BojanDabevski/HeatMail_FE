@@ -108,5 +108,31 @@
   .status-failed {
     color: red;
   }
-  
-  
+
+  .stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .stat-card {
+    padding: 1rem;
+    text-align: center;
+    background: linear-gradient(45deg, #FF6B6B, #FFE66D);
+    color: white;
+  }
+
+  .stat-card mat-card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-card mat-card-content {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+.mat-row:hover {
+  background-color: rgba(255, 107, 107, 0.1);
+  cursor: pointer;
+}

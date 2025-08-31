@@ -35,5 +35,8 @@ export class LayoutComponent {
   navigateToSendMails(): void{
     this.router.navigate(['/sendMails']);
   }
+   navigateToAttachments(): void{
+    this.router.navigate(['/attachments']);
+  }
 
 }

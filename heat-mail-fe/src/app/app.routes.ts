@@ -8,6 +8,7 @@ import { authGuard } from './guard/auth.guard';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { AddMailsComponent } from './pages/add-mails/add-mails.component';
 import { SendMailsComponent } from './pages/send-mails/send-mails.component';
+import { AttachmentsComponent } from './pages/attachments/attachments.component';
 
 export const routes: Routes = [
     {
@@ -71,4 +72,15 @@ export const routes: Routes = [
             }
         ]
     },
+    {
+    path: 'attachments',
+    component: LayoutComponent,
+    children: [
+        {
+            path: '',
+            component: AttachmentsComponent,
+            canActivate:[authGuard]
+        }
+    ]
+}
 ];

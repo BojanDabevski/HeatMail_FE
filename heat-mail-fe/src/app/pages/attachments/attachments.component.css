@@ -1,0 +1,58 @@
+.attachments-container {
+  padding: 16px;
+  background-color: #ffffff;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.mat-elevation-z8 {
+  margin-top: 20px;
+}
+
+p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+button[color="warn"] {
+  margin: 0 8px;
+  min-width: 90px;
+}
+
+td.mat-cell:last-of-type {
+  padding-right: 16px;
+}
+
+ .delete-mails-button {
+    /* width: 10%;
+    height: 5%; */
+    padding: 0rem;
+    /* margin-bottom: 1rem; */
+    margin-right: 1rem;
+    background: #FF6B6B;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+  }
+
+  .redirect-text {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.redirect-link {
+  color: #FF6B6B;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.redirect-link:hover {
+  color: #ff4f4f;
+}

@@ -50,12 +50,14 @@
   
   
   .mat-form-field {
-    margin-right: 20px;
-    align-items: center;
+    margin: 0;
+    width: 200px;  /* Adjust width as needed */
+    /* align-items: center; */
   }
   
   table {
-    width: 100%;
+    /* width: 100%; */
+    /* margin-bottom: 60px; */
   }
   
   .mat-elevation-z8 {
@@ -63,19 +65,17 @@
   }
   
   .dashboard-container {
-    position: fixed; /* Keeps the dashboard-container fixed */
-    top: 50px; /* Adjust this value to match the height of your menu bar */
-    left: 0;
-    width: 100%;
-    background-color: #ffffff; /* Optional: Set background color */
-    z-index: 1000; /* Ensure it stays above other elements */
-    padding: 16px; /* Optional: Add padding for content inside */
-    height: 100vh;         /* Full viewport height */
-    overflow: auto; 
+    /* padding: 16px; */
+    /* width: 100%; */
+    background-color: #ffffff;
   }
 
   .date-picker {
-    text-align: center; /* Optional: Centers text within the date-picker div */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
   }
 
   .fetch-date {
@@ -83,7 +83,7 @@
     height: 5%; */
     padding: 1rem;
     margin-bottom: 1rem;
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
     background: #FF6B6B;
     color: white;
     border: none;

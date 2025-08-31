@@ -1,22 +1,26 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Oswald:700|Lobster|Playfair+Display:700|Raleway:900&display=swap" rel="stylesheet">
 
-<body>
-  <div class="navbar">
-    <div class="logo">
-      <p>HeatMail</p><img src="assets/logo.png" alt="Logo"> 
-    </div>
-    <nav>
-      <ul>
-        <li><button mat-button type="submit" (click)="navigateToHome()">Dashboard</button></li>
-        <li><button mat-button type="submit" (click)="navigateToStatistics()">Statistics</button></li>
-        <li><button mat-button type="submit" (click)="navigateToAddMails()">Add HeatMail</button></li>
-        <li><button mat-button type="submit" (click)="navigateToSendMails()">Send HeatMail</button></li>
-        <li><button mat-button mat-button type="submit" (click)="logout()">Log out</button></li>
-      </ul>
-    </nav>
-  </div>    
-  <footer>
-    <p>&copy; 2025 HeatMail. All Rights Reserved.</p>
-</footer>
-</body>
-<router-outlet></router-outlet> 
+
+  <div class="layout-wrapper">
+    <div class="navbar">
+      <div class="logo">
+        <p>HeatMail</p><img src="assets/logo.png" alt="Logo"> 
+      </div>
+      <nav>
+        <ul>
+          <li><button mat-button type="submit" (click)="navigateToHome()">Dashboard</button></li>
+          <li><button mat-button type="submit" (click)="navigateToStatistics()">Statistics</button></li>
+          <li><button mat-button type="submit" (click)="navigateToAddMails()">Add HeatMail</button></li>
+          <li><button mat-button type="submit" (click)="navigateToSendMails()">Send HeatMail</button></li>
+          <li><button mat-button mat-button type="submit" (click)="logout()">Log out</button></li>
+        </ul>
+      </nav>
+    </div> 
+    <main>
+      <router-outlet></router-outlet> 
+    </main>   
+    <footer>
+      <p>&copy; 2025 HeatMail. All Rights Reserved.</p>
+    </footer>
+  </div>
+

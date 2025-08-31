@@ -22,7 +22,9 @@
     align-items: center;
     /* padding: 1em;; */
     background: linear-gradient(45deg, #FF6B6B, #FFE66D); 
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     height: fit-content;
      
     /* z-index: 10; */
@@ -82,18 +84,26 @@
     margin: 0;
     padding: 0;
   }
-  main {
-    padding: 2em;
+  /* Add a wrapper div style */
+.layout-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-  footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
+
+main {
+    flex: 1;
+    padding: 2em;
+    overflow-y: auto;
+}
+
+footer {
+    /* Remove position: fixed */
     width: 100%;
-    padding: 1em;
+    height: 60px;
     background-color: #333;
     color: white;
     text-align: center;
-  }
-  
-  
+    padding: 1em;
+}
+
